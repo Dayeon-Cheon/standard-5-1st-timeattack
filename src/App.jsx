@@ -1,32 +1,30 @@
 import { useState } from "react";
+import TodoForm from "./components/TodoForm";
+import TodoList from "./components/TodoList";
 
 export default function App() {
-  const [originNum, setOriginNum] = useState(0);
-  const [newNum, setNewNum] = useState(0);
-  const [resultNum, setResultNum] = useState(0);
+  const initialState = [
+    {
+      id: crypto.randomUUID(),
+      title: "밥 먹기",
+      content: "저녁밥",
+      isDone: false,
+    },
+    {
+      id: crypto.randomUUID(),
+      title: "공부",
+      content: "리액트",
+      isDone: true,
+    },
+  ];
 
-  const addNum = () => {
-    console.log(e.target.value);
-    setOriginNum(originNum - newNum);
-  };
-
-  const subtractNum = () => {};
-
-  const resetNum = () => {};
+  const [todos, setTodos] = useState(initialState);
 
   return (
-    <div>
-      <h1>덧셈과 뺄셈이 가능한 앱 만들기</h1>
-      <div>
-        <input type="text" /> 만큼을 <button onClick={addNum}>더할게요</button>{" "}
-        <button onClick={subtractNum}>뺄게요</button>
-        <button onClick={resetNum}>초기화</button>
-      </div>
-      <hr />
-      <div>
-        <h3>결과</h3>
-        <p>{resultNum}</p>
-      </div>
-    </div>
+    <>
+      <h1>투두리스트 타임어택</h1>
+      <TodoForm setTodos={setTodos} />
+      <TodoList todos={todos} setTodos={setTodos} />
+    </>
   );
 }
